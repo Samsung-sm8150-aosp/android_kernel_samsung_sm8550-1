@@ -66,10 +66,6 @@
 #include <linux/usb/typec/manager/usb_typec_manager_notifier.h>
 #endif
 
-#if IS_ENABLED(CONFIG_USB_CONFIGFS_F_SS_MON_GADGET)
-#include <linux/usb/f_ss_mon_gadget.h>
-#endif
-
 #if IS_ENABLED(CONFIG_USB_NOTIFY_LAYER)
 #include <linux/usb_notify.h>
 #endif
@@ -7583,10 +7579,6 @@ static int dwc3_otg_start_peripheral(struct dwc3_msm *mdwc, int on)
 	}
 	dbg_event(0xFF, "StrtGdgt gsync",
 		atomic_read(&mdwc->dev->power.usage_count));
-
-#if IS_ENABLED(CONFIG_USB_CONFIGFS_F_SS_MON_GADGET)
-	vbus_session_notify(dwc->gadget, on, EAGAIN);
-#endif
 
 	if (on) {
 		dev_dbg(mdwc->dev, "%s: turn on gadget\n", __func__);
